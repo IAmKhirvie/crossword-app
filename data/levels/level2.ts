@@ -1,5 +1,6 @@
 import { LevelData } from '../types';
 
+// Verified grid: EGG ends at row 2, MILK starts at row 4 — no adjacent white cells in col 5
 const level2: LevelData = {
   levelNumber: 2,
   title: 'Food & Drink',
@@ -8,10 +9,10 @@ const level2: LevelData = {
     [null, 'A', 'P', 'P', 'L', 'E', null, null],
     [null, null, 'L', null, null, 'G', null, null],
     [null, null, 'U', null, null, 'G', null, null],
-    [null, null, 'M', 'I', 'L', 'K', null, null],
+    [null, null, 'M', null, null, null, null, null],
+    [null, null, null, 'M', 'I', 'L', 'K', null],
     [null, null, null, null, null, null, null, null],
-    [null, null, 'L', 'E', 'M', 'O', 'N', null],
-    [null, null, null, null, null, null, null, null],
+    [null, 'L', 'E', 'M', 'O', 'N', null, null],
     [null, null, null, null, null, null, null, null],
   ],
   words: [
@@ -52,8 +53,8 @@ const level2: LevelData = {
       id: '3-across',
       word: 'MILK',
       direction: 'across',
-      startRow: 3,
-      startCol: 2,
+      startRow: 4,
+      startCol: 3,
       clueNumber: 3,
       clue: 'White drink from a cow',
       definition: 'Milk is a nutrient-rich white liquid produced by female mammals. It is a primary source of nutrition for young mammals.',
@@ -63,8 +64,8 @@ const level2: LevelData = {
       id: '4-across',
       word: 'LEMON',
       direction: 'across',
-      startRow: 5,
-      startCol: 2,
+      startRow: 6,
+      startCol: 1,
       clueNumber: 4,
       clue: 'Sour yellow citrus fruit',
       definition: 'A lemon is a yellow citrus fruit known for its sour taste. Its juice and zest are used in cooking and drinks worldwide.',

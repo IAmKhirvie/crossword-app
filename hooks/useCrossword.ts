@@ -1,12 +1,10 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import {
   CellData,
-  CellState,
   CompletedWordInfo,
   Direction,
   GridState,
   LevelData,
-  LevelProgress,
   WordEntry,
 } from '../data/types';
 import { IMAGE_MAP } from '../data/imageMap';
@@ -14,7 +12,6 @@ import {
   buildCellMap,
   buildInitialGridState,
   cellKey,
-  getNextCellInWord,
   isWordComplete,
 } from '../utils/crosswordHelpers';
 import { useProgress } from '../context/ProgressContext';
@@ -40,15 +37,33 @@ export function useCrossword(levelData: LevelData) {
   const [hintsUsed, setHintsUsed] = useState(savedProgress?.hintsUsed ?? 0);
   const [revealModalQueue, setRevealModalQueue] = useState<CompletedWordInfo[]>([]);
 
-  const selectedWordId = useMemo(() => {
-    if (!selectedCell) return null;
-    const key = cellKey(selectedCell.row, selectedCell.col);
-    const cell = cellMap[key];
-    if (!cell) return null;
-    if (activeDirection === 'across' && cell.acrossWordId) return cell.acrossWordId;
-    if (activeDirection === 'down' && cell.downWordId) return cell.downWordId;
-    return cell.acrossWordId ?? cell.downWordId ?? null;
-  }, [selectedCell, activeDirection, cellMap]);
+  // Use refs to avoid stale closures
+  const gridStateRef = useRef(gridState);
+  gridStateRef.current = gridState;
+  const selectedCellRef = useRef(selectedCell);
+  selectedCellRef.current = selectedCell;
+  const activeDirectionRef = useRef(activeDirection);
+  activeDirectionRef.current = activeDirection;
+  const completedWordIdsRef = useRef(completedWordIds);
+  completedWordIdsRef.current = completedWordIds;
+
+  const getSelectedWordId = useCallback(
+    (cell: { row: number; col: number } | null, direction: Direction): string | null => {
+      if (!cell) return null;
+      const key = cellKey(cell.row, cell.col);
+      const cellData = cellMap[key];
+      if (!cellData) return null;
+      if (direction === 'across' && cellData.acrossWordId) return cellData.acrossWordId;
+      if (direction === 'down' && cellData.downWordId) return cellData.downWordId;
+      return cellData.acrossWordId ?? cellData.downWordId ?? null;
+    },
+    [cellMap]
+  );
+
+  const selectedWordId = useMemo(
+    () => getSelectedWordId(selectedCell, activeDirection),
+    [selectedCell, activeDirection, getSelectedWordId]
+  );
 
   const isPuzzleComplete = useMemo(
     () => levelData.words.every((w) => completedWordIds.has(w.id)),
@@ -70,31 +85,83 @@ export function useCrossword(levelData: LevelData) {
     }, 600);
   }, [gridState, hintsUsed, completedWordIds, isPuzzleComplete]);
 
+  // Get next cell in a word (always advances, not just to empty cells)
+  const getNextCell = useCallback(
+    (wordId: string, currentKey: string, direction: 'forward' | 'backward'): string | null => {
+      const cells = wordCells[wordId];
+      if (!cells) return null;
+      const idx = cells.indexOf(currentKey);
+      if (idx === -1) return null;
+      if (direction === 'forward') {
+        return idx + 1 < cells.length ? cells[idx + 1] : null;
+      } else {
+        return idx > 0 ? cells[idx - 1] : null;
+      }
+    },
+    [wordCells]
+  );
+
+  // Get next empty cell in a word (for hints)
+  const getNextEmptyCell = useCallback(
+    (wordId: string, currentKey: string, gs: GridState): string | null => {
+      const cells = wordCells[wordId];
+      if (!cells) return null;
+      const idx = cells.indexOf(currentKey);
+      if (idx === -1) return null;
+      for (let i = idx + 1; i < cells.length; i++) {
+        const s = gs[cells[i]];
+        if (s && !s.isRevealed && !s.isCorrect && s.userLetter === '') {
+          return cells[i];
+        }
+      }
+      for (let i = 0; i < idx; i++) {
+        const s = gs[cells[i]];
+        if (s && !s.isRevealed && !s.isCorrect && s.userLetter === '') {
+          return cells[i];
+        }
+      }
+      return null;
+    },
+    [wordCells]
+  );
+
+  const parseCellKey = (key: string) => {
+    const [r, c] = key.split('-').map(Number);
+    return { row: r, col: c };
+  };
+
   const checkWordCompletionForCell = useCallback(
     (key: string, nextGridState: GridState) => {
       const cell = cellMap[key];
       if (!cell) return;
-      const wordIds = [cell.acrossWordId, cell.downWordId].filter(Boolean) as string[];
+      const wIds = [cell.acrossWordId, cell.downWordId].filter(Boolean) as string[];
+      const currentCompleted = completedWordIdsRef.current;
       const newlyCompleted: CompletedWordInfo[] = [];
-      for (const wId of wordIds) {
-        if (completedWordIds.has(wId)) continue;
+      const newIds: string[] = [];
+
+      for (const wId of wIds) {
+        if (currentCompleted.has(wId)) continue;
         if (isWordComplete(wId, wordCells, cellMap, nextGridState)) {
-          completedWordIds.add(wId);
+          newIds.push(wId);
           const wordEntry = wordMap[wId];
           if (wordEntry) {
             newlyCompleted.push({
               wordEntry,
-              imageSource: IMAGE_MAP[wordEntry.imageKey] ?? IMAGE_MAP['placeholder'] ?? 0,
+              imageSource: IMAGE_MAP[wordEntry.imageKey] ?? 0,
             });
           }
         }
       }
-      if (newlyCompleted.length > 0) {
-        setCompletedWordIds(new Set(completedWordIds));
+      if (newIds.length > 0) {
+        setCompletedWordIds((prev) => {
+          const next = new Set(prev);
+          for (const id of newIds) next.add(id);
+          return next;
+        });
         setRevealModalQueue((q) => [...q, ...newlyCompleted]);
       }
     },
-    [cellMap, wordCells, wordMap, completedWordIds]
+    [cellMap, wordCells, wordMap]
   );
 
   const selectCell = useCallback(
@@ -103,22 +170,22 @@ export function useCrossword(levelData: LevelData) {
       const cell = cellMap[key];
       if (!cell || cell.isBlack) return;
 
+      const current = selectedCellRef.current;
       if (
-        selectedCell &&
-        selectedCell.row === row &&
-        selectedCell.col === col &&
+        current &&
+        current.row === row &&
+        current.col === col &&
         cell.acrossWordId &&
         cell.downWordId
       ) {
         setActiveDirection((d) => (d === 'across' ? 'down' : 'across'));
       } else {
         setSelectedCell({ row, col });
-        // Auto-detect direction
         if (cell.acrossWordId && !cell.downWordId) setActiveDirection('across');
         else if (cell.downWordId && !cell.acrossWordId) setActiveDirection('down');
       }
     },
-    [selectedCell, cellMap]
+    [cellMap]
   );
 
   const selectWord = useCallback(
@@ -133,41 +200,49 @@ export function useCrossword(levelData: LevelData) {
 
   const typeLetterIntoSelected = useCallback(
     (letter: string) => {
-      if (!selectedCell || !selectedWordId) return;
-      const key = cellKey(selectedCell.row, selectedCell.col);
-      const state = gridState[key];
+      const sc = selectedCellRef.current;
+      const dir = activeDirectionRef.current;
+      if (!sc) return;
+      const wId = getSelectedWordId(sc, dir);
+      if (!wId) return;
+
+      const key = cellKey(sc.row, sc.col);
+      const gs = gridStateRef.current;
+      const state = gs[key];
+
       if (!state || state.isRevealed || state.isCorrect) {
-        // Try to advance to next empty cell
-        const next = getNextCellInWord(selectedWordId, key, wordCells, gridState, 'forward');
-        if (next) {
-          const [r, c] = next.split('-').map(Number);
-          setSelectedCell({ row: r, col: c });
-        }
+        // Skip to next cell
+        const next = getNextCell(wId, key, 'forward');
+        if (next) setSelectedCell(parseCellKey(next));
         return;
       }
 
       const nextGridState = {
-        ...gridState,
+        ...gs,
         [key]: { ...state, userLetter: letter.toUpperCase() },
       };
       setGridState(nextGridState);
-
       checkWordCompletionForCell(key, nextGridState);
 
-      // Advance cursor
-      const next = getNextCellInWord(selectedWordId, key, wordCells, nextGridState, 'forward');
+      // Always advance to next cell in the word
+      const next = getNextCell(wId, key, 'forward');
       if (next) {
-        const [r, c] = next.split('-').map(Number);
-        setSelectedCell({ row: r, col: c });
+        setSelectedCell(parseCellKey(next));
       }
     },
-    [selectedCell, selectedWordId, gridState, wordCells, checkWordCompletionForCell]
+    [getSelectedWordId, getNextCell, checkWordCompletionForCell]
   );
 
   const deleteLetterFromSelected = useCallback(() => {
-    if (!selectedCell || !selectedWordId) return;
-    const key = cellKey(selectedCell.row, selectedCell.col);
-    const state = gridState[key];
+    const sc = selectedCellRef.current;
+    const dir = activeDirectionRef.current;
+    if (!sc) return;
+    const wId = getSelectedWordId(sc, dir);
+    if (!wId) return;
+
+    const key = cellKey(sc.row, sc.col);
+    const gs = gridStateRef.current;
+    const state = gs[key];
     if (!state) return;
 
     if (state.userLetter && !state.isRevealed && !state.isCorrect) {
@@ -176,31 +251,31 @@ export function useCrossword(levelData: LevelData) {
         [key]: { ...prev[key], userLetter: '' },
       }));
     } else {
-      // Move backward
-      const prev = getNextCellInWord(selectedWordId, key, wordCells, gridState, 'backward');
+      const prev = getNextCell(wId, key, 'backward');
       if (prev) {
-        const [r, c] = prev.split('-').map(Number);
-        const prevState = gridState[prev];
+        const prevState = gs[prev];
         if (prevState && !prevState.isRevealed && !prevState.isCorrect) {
-          setGridState((gs) => ({
-            ...gs,
-            [prev]: { ...gs[prev], userLetter: '' },
+          setGridState((g) => ({
+            ...g,
+            [prev]: { ...g[prev], userLetter: '' },
           }));
         }
-        setSelectedCell({ row: r, col: c });
+        setSelectedCell(parseCellKey(prev));
       }
     }
-  }, [selectedCell, selectedWordId, gridState, wordCells]);
+  }, [getSelectedWordId, getNextCell]);
 
   const revealSelectedCell = useCallback(() => {
-    if (!selectedCell) return;
-    const key = cellKey(selectedCell.row, selectedCell.col);
+    const sc = selectedCellRef.current;
+    if (!sc) return;
+    const key = cellKey(sc.row, sc.col);
     const cell = cellMap[key];
-    const state = gridState[key];
+    const gs = gridStateRef.current;
+    const state = gs[key];
     if (!cell || !state || state.isRevealed || state.isCorrect) return;
 
     const nextGridState = {
-      ...gridState,
+      ...gs,
       [key]: {
         userLetter: cell.letter,
         isRevealed: true,
@@ -212,15 +287,15 @@ export function useCrossword(levelData: LevelData) {
 
     checkWordCompletionForCell(key, nextGridState);
 
-    // Advance to next empty cell
-    if (selectedWordId) {
-      const next = getNextCellInWord(selectedWordId, key, wordCells, nextGridState, 'forward');
+    const dir = activeDirectionRef.current;
+    const wId = getSelectedWordId(sc, dir);
+    if (wId) {
+      const next = getNextEmptyCell(wId, key, nextGridState);
       if (next) {
-        const [r, c] = next.split('-').map(Number);
-        setSelectedCell({ row: r, col: c });
+        setSelectedCell(parseCellKey(next));
       }
     }
-  }, [selectedCell, selectedWordId, cellMap, gridState, wordCells, checkWordCompletionForCell]);
+  }, [cellMap, getSelectedWordId, getNextEmptyCell, checkWordCompletionForCell]);
 
   const dismissRevealModal = useCallback(() => {
     setRevealModalQueue((q) => q.slice(1));
