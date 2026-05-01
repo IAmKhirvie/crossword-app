@@ -26,6 +26,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "crossword-app"
+    "scheme": "crossword-app",
+    "plugins": [
+      "expo-font",
+      "expo-router"
+    ]
   }
 }
