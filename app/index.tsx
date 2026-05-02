@@ -7,7 +7,8 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useProgress } from '../context/ProgressContext';
 import { LEVELS, LEVEL_COUNT } from '../data/levels';
 
@@ -28,6 +29,11 @@ export default function LevelSelectScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Link href="/settings" asChild>
+          <TouchableOpacity style={styles.settingsButton}>
+            <Ionicons name="settings-outline" size={24} color="#fff" />
+          </TouchableOpacity>
+        </Link>
         <Text style={styles.headerTitle}>WordConnect</Text>
         <Text style={styles.headerSubtitle}>Learn new words with each puzzle!</Text>
       </View>
@@ -128,6 +134,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#ddeeff',
     marginTop: 4,
+  },
+  settingsButton: {
+    position: 'absolute',
+    right: 16,
+    top: 16,
+    padding: 8,
   },
   list: {
     padding: 16,

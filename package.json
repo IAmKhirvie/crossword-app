@@ -1,5 +1,5 @@
 {
-  "name": "WordConnect",
+  "name": "wordconnect",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
@@ -11,7 +11,9 @@
   "dependencies": {
     "@expo/ngrok": "^4.1.0",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/slider": "5.0.1",
     "expo": "~54.0.34",
+    "expo-av": "~16.0.8",
     "expo-constants": "~18.0.13",
     "expo-dev-client": "~6.0.21",
     "expo-font": "~14.0.11",

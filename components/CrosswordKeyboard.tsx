@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSettings } from '../context/SettingsContext';
 
 interface CrosswordKeyboardProps {
   onLetter: (letter: string) => void;
@@ -27,18 +28,19 @@ export function CrosswordKeyboard({
 }: CrosswordKeyboardProps) {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const { keyboardHeight } = useSettings();   // ← dynamic user setting
 
   if (!visible) return null;
 
   const keyWidth = Math.floor((width - 20) / 10) - 4;
-  const keyHeight = 44;
+  const keyHeight = keyboardHeight;            // now driven by settings
+  const fontSize = Math.round(keyboardHeight * 0.4); // scale proportionally
 
   return (
     <View
       style={[
         styles.container,
         {
-          // Replace the static vertical padding with dynamic padding
           paddingTop: 6,
           paddingBottom: insets.bottom + 6,
         },
@@ -65,7 +67,9 @@ export function CrosswordKeyboard({
                 <Text
                   style={[
                     styles.keyText,
+                    { fontSize },                     // dynamic font size
                     isDelete && styles.deleteKeyText,
+                    isDelete && { fontSize: fontSize + 2 }, // slightly bigger for ⌫
                   ]}
                 >
                   {key}
@@ -81,11 +85,9 @@ export function CrosswordKeyboard({
 
 const styles = StyleSheet.create({
   container: {
-    // Remove `paddingVertical` from here because we set it dynamically
     paddingHorizontal: 4,
     backgroundColor: '#D1D5DB',
   },
-  // … rest of styles unchanged
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -107,12 +109,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#9CA3AF',
   },
   keyText: {
-    fontSize: 18,
     fontWeight: '600',
     color: '#1a1a1a',
   },
   deleteKeyText: {
-    fontSize: 20,
     color: '#fff',
   },
 });

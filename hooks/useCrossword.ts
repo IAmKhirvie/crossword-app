@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useSoundManager } from '../hooks/useSoundManager';
 import {
   CellData,
   CompletedWordInfo,
@@ -18,6 +19,7 @@ import { useProgress } from '../context/ProgressContext';
 
 export function useCrossword(levelData: LevelData) {
   const { saveLevelProgress, getLevelProgress } = useProgress();
+  const { playSfx } = useSoundManager();
 
   const { cellMap, wordCells, wordMap } = useMemo(
     () => buildCellMap(levelData),
@@ -69,6 +71,13 @@ export function useCrossword(levelData: LevelData) {
     () => levelData.words.every((w) => completedWordIds.has(w.id)),
     [completedWordIds, levelData.words]
   );
+
+  // Play completion fanfare when puzzle first becomes complete
+  useEffect(() => {
+    if (isPuzzleComplete) {
+      playSfx('complete');
+    }
+  }, [isPuzzleComplete]);
 
   // Persist progress
   const persistRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -153,6 +162,8 @@ export function useCrossword(levelData: LevelData) {
         }
       }
       if (newIds.length > 0) {
+        // Play ding for each newly completed word
+        playSfx('ding');
         setCompletedWordIds((prev) => {
           const next = new Set(prev);
           for (const id of newIds) next.add(id);
@@ -161,7 +172,7 @@ export function useCrossword(levelData: LevelData) {
         setRevealModalQueue((q) => [...q, ...newlyCompleted]);
       }
     },
-    [cellMap, wordCells, wordMap]
+    [cellMap, wordCells, wordMap, playSfx]
   );
 
   const selectCell = useCallback(
@@ -217,6 +228,12 @@ export function useCrossword(levelData: LevelData) {
         return;
       }
 
+      // Check if the entered letter is wrong and play error sound
+      const cell = cellMap[key];
+      if (cell && cell.letter !== letter.toUpperCase()) {
+        playSfx('error');
+      }
+
       const nextGridState = {
         ...gs,
         [key]: { ...state, userLetter: letter.toUpperCase() },
@@ -230,7 +247,7 @@ export function useCrossword(levelData: LevelData) {
         setSelectedCell(parseCellKey(next));
       }
     },
-    [getSelectedWordId, getNextCell, checkWordCompletionForCell]
+    [getSelectedWordId, getNextCell, checkWordCompletionForCell, playSfx, cellMap]
   );
 
   const deleteLetterFromSelected = useCallback(() => {
