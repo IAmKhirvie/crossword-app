@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "crossword-app",
-    "slug": "crossword-app",
+    "name": "WordConnect",
+    "slug": "WordConnect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,7 +26,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "crossword-app",
+    "scheme": "WordConnect",
     "plugins": [
       "expo-font",
       "expo-router"

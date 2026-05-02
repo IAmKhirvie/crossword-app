@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, useWindowDimensions, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  StyleSheet,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface CrosswordKeyboardProps {
   onLetter: (letter: string) => void;
@@ -13,8 +20,13 @@ const ROWS = [
   ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '\u232B'],
 ];
 
-export function CrosswordKeyboard({ onLetter, onDelete, visible }: CrosswordKeyboardProps) {
+export function CrosswordKeyboard({
+  onLetter,
+  onDelete,
+  visible,
+}: CrosswordKeyboardProps) {
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
   if (!visible) return null;
 
@@ -22,10 +34,19 @@ export function CrosswordKeyboard({ onLetter, onDelete, visible }: CrosswordKeyb
   const keyHeight = 44;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          // Replace the static vertical padding with dynamic padding
+          paddingTop: 6,
+          paddingBottom: insets.bottom + 6,
+        },
+      ]}
+    >
       {ROWS.map((row, ri) => (
         <View key={ri} style={styles.row}>
-          {row.map((key) => {
+          {row.map(key => {
             const isDelete = key === '\u232B';
             return (
               <TouchableOpacity
@@ -41,7 +62,12 @@ export function CrosswordKeyboard({ onLetter, onDelete, visible }: CrosswordKeyb
                 onPress={() => (isDelete ? onDelete() : onLetter(key))}
                 activeOpacity={0.6}
               >
-                <Text style={[styles.keyText, isDelete && styles.deleteKeyText]}>
+                <Text
+                  style={[
+                    styles.keyText,
+                    isDelete && styles.deleteKeyText,
+                  ]}
+                >
                   {key}
                 </Text>
               </TouchableOpacity>
@@ -55,10 +81,11 @@ export function CrosswordKeyboard({ onLetter, onDelete, visible }: CrosswordKeyb
 
 const styles = StyleSheet.create({
   container: {
+    // Remove `paddingVertical` from here because we set it dynamically
     paddingHorizontal: 4,
-    paddingVertical: 6,
     backgroundColor: '#D1D5DB',
   },
+  // … rest of styles unchanged
   row: {
     flexDirection: 'row',
     justifyContent: 'center',

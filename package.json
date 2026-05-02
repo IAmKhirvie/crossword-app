@@ -1,5 +1,5 @@
 {
-  "name": "crossword-app",
+  "name": "WordConnect",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {

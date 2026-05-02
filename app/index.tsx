@@ -28,7 +28,7 @@ export default function LevelSelectScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Word Crossword</Text>
+        <Text style={styles.headerTitle}>WordConnect</Text>
         <Text style={styles.headerSubtitle}>Learn new words with each puzzle!</Text>
       </View>
       <FlatList
