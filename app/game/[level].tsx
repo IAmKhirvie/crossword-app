@@ -9,12 +9,14 @@ import { ClueList } from '../../components/ClueList';
 import { CrosswordKeyboard } from '../../components/CrosswordKeyboard';
 import { WordRevealModal } from '../../components/WordRevealModal';
 import { GameHeader } from '../../components/GameHeader';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function GameScreen() {
   const { level } = useLocalSearchParams<{ level: string }>();
   const router = useRouter();
   const levelNumber = parseInt(level ?? '1', 10);
   const levelData = LEVELS[levelNumber];
+  const insets = useSafeAreaInsets();
 
   const crossword = useCrossword(levelData);
 
@@ -54,7 +56,7 @@ export default function GameScreen() {
       />
 
       {crossword.isPuzzleComplete && (
-        <View style={styles.completeBar}>
+        <View style={[styles.completeBar, { paddingBottom: 16 + insets.bottom }]}>
           <Text style={styles.completeText}>Puzzle Complete!</Text>
           <TouchableOpacity
             style={styles.nextButton}
