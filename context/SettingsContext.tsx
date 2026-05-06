@@ -34,10 +34,12 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     })();
   }, []);
 
-  const updateSettings = async (partial: Partial<Settings>) => {
-    const newSettings = { ...settings, ...partial };
-    setSettings(newSettings);
-    await AsyncStorage.setItem('user-settings', JSON.stringify(newSettings));
+  const updateSettings = (partial: Partial<Settings>) => {
+    setSettings(prev => {
+      const newSettings = { ...prev, ...partial };
+      AsyncStorage.setItem('user-settings', JSON.stringify(newSettings)).catch(() => {});
+      return newSettings;
+    });
   };
 
   return (

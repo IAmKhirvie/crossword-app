@@ -1,90 +1,106 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Audio } from 'expo-av';
 import { useSettings } from '../context/SettingsContext';
 
+// ── Singleton state shared across all hook consumers ──
 let sfxSounds: { [key: string]: Audio.Sound } = {};
 let musicInstance: Audio.Sound | null = null;
+let mountCount = 0;
+let loadingPromise: Promise<void> | null = null;
+let globalIsLoaded = false;
 
 export function useSoundManager() {
   const { sfxEnabled, musicEnabled, musicVolume, sfxVolume } = useSettings();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const restartTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isLoaded, setIsLoaded] = useState(globalIsLoaded);
 
-  // --------------------- Load sounds once ---------------------
+  // Load sounds once — shared across every component that calls this hook
   useEffect(() => {
-    let cancelled = false;
+    mountCount++;
 
-    const loadSounds = async () => {
-      try {
-        const { sound: ding } = await Audio.Sound.createAsync(
-          require('../assets/sounds/ding.mp3')
-        );
-        const { sound: complete } = await Audio.Sound.createAsync(
-          require('../assets/sounds/complete.mp3')
-        );
-        const { sound: error } = await Audio.Sound.createAsync(
-          require('../assets/sounds/error.mp3')
-        );
-        sfxSounds = { ding, complete, error };
+    if (!loadingPromise) {
+      loadingPromise = (async () => {
+        try {
+          await Audio.setAudioModeAsync({ playsInSilentModeIOS: true });
 
-        const { sound: music } = await Audio.Sound.createAsync(
-          require('../assets/sounds/bg-music.mp3'),
-          { isLooping: true, volume: musicVolume }
-        );
-        musicInstance = music;
+          const [ding, complete, error, music] = await Promise.all([
+            Audio.Sound.createAsync(require('../assets/sounds/ding.mp3')),
+            Audio.Sound.createAsync(require('../assets/sounds/complete.mp3')),
+            Audio.Sound.createAsync(require('../assets/sounds/error.mp3')),
+            Audio.Sound.createAsync(require('../assets/sounds/bg-music.mp3'), {
+              isLooping: true,
+              volume: 0.8,
+            }),
+          ]);
 
-        if (!cancelled) setIsLoaded(true);
-      } catch (err) {
-        console.warn('Failed to load sound files:', err);
-        if (!cancelled) setIsLoaded(true);
-      }
-    };
+          sfxSounds = {
+            ding: ding.sound,
+            complete: complete.sound,
+            error: error.sound,
+          };
+          musicInstance = music.sound;
+          globalIsLoaded = true;
+        } catch (err) {
+          console.warn('Failed to load sound files:', err);
+          globalIsLoaded = true; // let app continue without sound
+        }
+      })();
+    }
 
-    loadSounds();
+    loadingPromise.then(() => setIsLoaded(true));
 
     return () => {
-      cancelled = true;
-      Object.values(sfxSounds).forEach(s => s.unloadAsync());
-      if (musicInstance) {
-        musicInstance.unloadAsync();
-        musicInstance = null;
+      mountCount--;
+      // Only unload when the very last consumer unmounts
+      if (mountCount === 0) {
+        Object.values(sfxSounds).forEach(s => s.unloadAsync());
+        sfxSounds = {};
+        if (musicInstance) {
+          musicInstance.unloadAsync();
+          musicInstance = null;
+        }
+        loadingPromise = null;
+        globalIsLoaded = false;
       }
     };
   }, []);
 
-  // --------------------- Real‑time volume (setStatusAsync) ---------------------
+  // ── Adjust music volume in real-time ──
   useEffect(() => {
-    if (musicInstance) {
-      musicInstance
-        .setStatusAsync({ volume: musicVolume })
-        .catch(err => console.warn('Failed to set music volume:', err));
-    }
+    if (!musicInstance || !globalIsLoaded) return;
+    musicInstance
+      .setStatusAsync({ volume: musicVolume })
+      .catch(() => {});
   }, [musicVolume]);
 
-  // --------------------- Fallback: debounced restart on volume change ---------------------
+  // ── Toggle music on/off when setting changes ──
   useEffect(() => {
-    if (restartTimer.current) clearTimeout(restartTimer.current);
-
-    restartTimer.current = setTimeout(async () => {
-      if (musicInstance && musicEnabled) {
-        const status = await musicInstance.getStatusAsync();
-        if (status.isLoaded && status.isPlaying) {
-          await musicInstance.stopAsync();
-          await musicInstance.setStatusAsync({ volume: musicVolume });
-          await musicInstance.playAsync();
+    if (!musicInstance || !isLoaded) return;
+    (async () => {
+      try {
+        const status = await musicInstance!.getStatusAsync();
+        if (!status.isLoaded) return;
+        if (musicEnabled && !status.isPlaying) {
+          await musicInstance!.setStatusAsync({ volume: musicVolume });
+          await musicInstance!.playAsync();
+        } else if (!musicEnabled && status.isPlaying) {
+          await musicInstance!.stopAsync();
         }
-      }
-    }, 300);
+      } catch {}
+    })();
+  }, [musicEnabled, isLoaded]);
 
-    return () => {
-      if (restartTimer.current) clearTimeout(restartTimer.current);
-    };
-  }, [musicVolume, musicEnabled]);
+  // ── Adjust SFX volume on existing loaded sounds ──
+  useEffect(() => {
+    if (!globalIsLoaded) return;
+    Object.values(sfxSounds).forEach(s => {
+      s.setStatusAsync({ volume: sfxVolume }).catch(() => {});
+    });
+  }, [sfxVolume]);
 
-  // --------------------- Play SFX ---------------------
+  // ── Play a sound effect ──
   const playSfx = useCallback(
     async (name: 'ding' | 'complete' | 'error') => {
-      if (!isLoaded || !sfxEnabled) return;
+      if (!sfxEnabled || !globalIsLoaded) return;
       const sound = sfxSounds[name];
       if (sound) {
         try {
@@ -93,25 +109,29 @@ export function useSoundManager() {
         } catch {}
       }
     },
-    [isLoaded, sfxEnabled, sfxVolume]
+    [sfxEnabled, sfxVolume]
   );
 
-  // --------------------- Play / Stop Music ---------------------
+  // ── Play / Stop background music ──
   const playMusic = useCallback(async () => {
-    if (!isLoaded || !musicEnabled || !musicInstance) return;
-    const status = await musicInstance.getStatusAsync();
-    if (status.isLoaded && !status.isPlaying) {
-      await musicInstance.setStatusAsync({ volume: musicVolume });
-      await musicInstance.playAsync();
-    }
-  }, [isLoaded, musicEnabled, musicVolume]);
+    if (!musicEnabled || !musicInstance || !globalIsLoaded) return;
+    try {
+      const status = await musicInstance.getStatusAsync();
+      if (status.isLoaded && !status.isPlaying) {
+        await musicInstance.setStatusAsync({ volume: musicVolume });
+        await musicInstance.playAsync();
+      }
+    } catch {}
+  }, [musicEnabled, musicVolume]);
 
   const stopMusic = useCallback(async () => {
     if (!musicInstance) return;
-    const status = await musicInstance.getStatusAsync();
-    if (status.isLoaded && status.isPlaying) {
-      await musicInstance.stopAsync();
-    }
+    try {
+      const status = await musicInstance.getStatusAsync();
+      if (status.isLoaded && status.isPlaying) {
+        await musicInstance.stopAsync();
+      }
+    } catch {}
   }, []);
 
   return { playSfx, playMusic, stopMusic, isLoaded };
