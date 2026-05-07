@@ -30,6 +30,7 @@ const level9: LevelData = {
       clue: 'What is real and accurate',
       definition: 'Truth is the quality of being in accordance with fact or reality. In philosophy, truth is a central subject of inquiry.',
       imageKey: 'truth',
+      pronunciation: '/truːθ/',
     },
     {
       id: '1-down',
@@ -41,6 +42,7 @@ const level9: LevelData = {
       clue: 'A statement to be proved or defended',
       definition: 'A thesis is a statement or theory put forward as a premise to be maintained or proved. Central to academic and philosophical argument.',
       imageKey: 'thesis',
+      pronunciation: '/ˈθiː.sɪs/',
     },
     {
       id: '2-across',
@@ -52,6 +54,7 @@ const level9: LevelData = {
       clue: 'A short rule of conduct',
       definition: 'A maxim is a concise expression of a fundamental moral rule or principle. Kant used maxims as the basis of his ethical theory.',
       imageKey: 'maxim',
+      pronunciation: '/ˈmæk.sɪm/',
     },
     {
       id: '2-down',
@@ -63,6 +66,7 @@ const level9: LevelData = {
       clue: 'Concerned with right and wrong',
       definition: 'Moral relates to principles of right and wrong behavior. Moral philosophy is the study of ethical standards.',
       imageKey: 'moral',
+      pronunciation: '/ˈmɔːr.əl/',
     },
     {
       id: '3-across',
@@ -74,6 +78,7 @@ const level9: LevelData = {
       clue: 'The spirit or character of a community',
       definition: 'Ethos is the characteristic spirit of a culture or era. In rhetoric, it refers to the credibility of the speaker.',
       imageKey: 'ethos',
+      pronunciation: '/ˈiː.θɒs/',
     },
     {
       id: '4-across',
@@ -85,6 +90,7 @@ const level9: LevelData = {
       clue: 'To present reasons for or against',
       definition: 'To argue is to give reasons in support of an idea, often in a structured debate. Argumentation is core to philosophy.',
       imageKey: 'argue',
+      pronunciation: '/ˈɑːr.ɡjuː/',
     },
     {
       id: '5-across',
@@ -96,6 +102,7 @@ const level9: LevelData = {
       clue: 'One who endures pain without complaint',
       definition: 'A Stoic follows the philosophy of Stoicism, which teaches the development of self-control and fortitude to overcome destructive emotions.',
       imageKey: 'stoic',
+      pronunciation: '/ˈstoʊ.ɪk/',
     },
     {
       id: '6-across',
@@ -107,6 +114,7 @@ const level9: LevelData = {
       clue: 'Something that produces an effect',
       definition: 'In philosophy, a cause is what makes something happen. Causation is a fundamental concept in metaphysics and science.',
       imageKey: 'cause',
+      pronunciation: '/kɔːz/',
     },
     {
       id: '7-across',
@@ -118,6 +126,7 @@ const level9: LevelData = {
       clue: 'A perfect standard to strive for',
       definition: 'An ideal is a principle or value actively pursued as a goal. Plato believed in ideal forms as the highest reality.',
       imageKey: 'ideal',
+      pronunciation: '/aɪˈdiːl/',
     },
     {
       id: '8-across',
@@ -129,6 +138,7 @@ const level9: LevelData = {
       clue: 'A principle of importance or worth',
       definition: 'Values are principles or standards of behavior regarded as important. Axiology is the philosophical study of value.',
       imageKey: 'value',
+      pronunciation: '/ˈvæl.juː/',
     },
     {
       id: '9-across',
@@ -140,6 +150,7 @@ const level9: LevelData = {
       clue: 'The science of valid reasoning',
       definition: 'Logic is the systematic study of valid rules of inference. It forms the foundation of mathematics and philosophy.',
       imageKey: 'logic',
+      pronunciation: '/ˈlɒdʒ.ɪk/',
     },
     {
       id: '10-across',
@@ -151,6 +162,7 @@ const level9: LevelData = {
       clue: 'A belief held as unquestionable truth',
       definition: 'Dogma is a set of principles laid down by an authority as incontrovertibly true. Critical thinking challenges dogma.',
       imageKey: 'dogma',
+      pronunciation: '/ˈdɒɡ.mə/',
     },
     {
       id: '11-across',
@@ -162,6 +174,7 @@ const level9: LevelData = {
       clue: 'The nature of existence itself',
       definition: 'Being is the most general concept in ontology, the philosophical study of existence. "What does it mean to be?" is a central question.',
       imageKey: 'being',
+      pronunciation: '/ˈbiː.ɪŋ/',
     },
   ],
 };

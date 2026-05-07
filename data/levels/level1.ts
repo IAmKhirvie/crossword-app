@@ -24,6 +24,7 @@ const level1: LevelData = {
       clue: 'A wheeled vehicle for carrying goods',
       definition: 'A cart is a vehicle designed for transport, using two or four wheels. Historically used in markets, farms, and for moving heavy loads.',
       imageKey: 'cart',
+      pronunciation: '/kɑːrt/',
     },
     {
       id: '1-down',
@@ -35,6 +36,7 @@ const level1: LevelData = {
       clue: 'A small furry pet that purrs',
       definition: 'A cat (Felis catus) is a small domesticated carnivorous mammal. Cats are valued for companionship and their ability to hunt pests.',
       imageKey: 'cat',
+      pronunciation: '/kæt/',
     },
     {
       id: '2-down',
@@ -46,6 +48,7 @@ const level1: LevelData = {
       clue: 'A hot beverage brewed from leaves',
       definition: 'Tea is an aromatic beverage prepared by pouring hot water over cured or fresh leaves of the Camellia sinensis plant.',
       imageKey: 'tea',
+      pronunciation: '/tiː/',
     },
     {
       id: '3-across',
@@ -57,6 +60,7 @@ const level1: LevelData = {
       clue: 'A curved line or shape',
       definition: 'An arc is a portion of a curve, especially a circle. It can describe the path of a thrown ball or an electrical discharge.',
       imageKey: 'arc',
+      pronunciation: '/ɑːrk/',
     },
     {
       id: '4-down',
@@ -68,6 +72,7 @@ const level1: LevelData = {
       clue: 'You drink from this vessel',
       definition: 'A cup is a small, open container used for drinking. Cups are typically used for hot beverages like tea or coffee.',
       imageKey: 'cup',
+      pronunciation: '/kʌp/',
     },
   ],
 };

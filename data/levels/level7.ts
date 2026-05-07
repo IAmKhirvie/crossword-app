@@ -30,6 +30,7 @@ const level7: LevelData = {
       clue: 'A curved structure over an opening',
       definition: 'An arch is a curved symmetrical structure spanning an opening, distributing weight efficiently. Used since ancient times.',
       imageKey: 'arch',
+      pronunciation: '/ɑːrtʃ/',
     },
     {
       id: '2-across',
@@ -41,6 +42,7 @@ const level7: LevelData = {
       clue: 'A tall pointed tower on a church',
       definition: 'A spire is a tapering conical or pyramidal structure atop a tower, commonly found on churches and cathedrals.',
       imageKey: 'spire',
+      pronunciation: '/spaɪər/',
     },
     {
       id: '2-down',
@@ -52,6 +54,7 @@ const level7: LevelData = {
       clue: 'A tall vertical column',
       definition: 'A pillar is a tall vertical structure used to support a building. Pillars have been fundamental to architecture since ancient Greece.',
       imageKey: 'pillar',
+      pronunciation: '/ˈpɪl.ər/',
     },
     {
       id: '3-across',
@@ -63,6 +66,7 @@ const level7: LevelData = {
       clue: 'An arched ceiling or roof',
       definition: 'A vault is an arched form providing a ceiling or roof. Gothic cathedrals feature elaborate ribbed vaults.',
       imageKey: 'vault',
+      pronunciation: '/vɔːlt/',
     },
     {
       id: '3-down',
@@ -74,6 +78,7 @@ const level7: LevelData = {
       clue: 'Horizontal beam over a door',
       definition: 'A lintel is a horizontal structural block spanning the top of a door or window, bearing the weight of the wall above.',
       imageKey: 'lintel',
+      pronunciation: '/ˈlɪn.təl/',
     },
     {
       id: '4-across',
@@ -85,6 +90,7 @@ const level7: LevelData = {
       clue: 'A rounded vault forming a roof',
       definition: 'A dome is a hemispherical structure forming a roof. Famous domes include the Pantheon and St. Peter\'s Basilica.',
       imageKey: 'dome',
+      pronunciation: '/doʊm/',
     },
     {
       id: '5-down',
@@ -96,6 +102,7 @@ const level7: LevelData = {
       clue: 'Paste used to bind bricks',
       definition: 'Mortar is a paste of cement, sand, and water used to bind building blocks like bricks and stones together.',
       imageKey: 'mortar',
+      pronunciation: '/ˈmɔːr.tər/',
     },
     {
       id: '6-across',
@@ -107,6 +114,7 @@ const level7: LevelData = {
       clue: 'A long sturdy piece of timber or steel',
       definition: 'A beam is a structural element that bears loads by resisting bending. Beams are fundamental horizontal members.',
       imageKey: 'beam',
+      pronunciation: '/biːm/',
     },
     {
       id: '7-across',
@@ -118,6 +126,7 @@ const level7: LevelData = {
       clue: 'Triangular part of wall under a roof',
       definition: 'A gable is the triangular portion of a wall between the edges of intersecting roof pitches.',
       imageKey: 'gable',
+      pronunciation: '/ˈɡeɪ.bəl/',
     },
   ],
 };

@@ -26,6 +26,7 @@ const level3: LevelData = {
       clue: 'Large furry woodland mammal',
       definition: 'Bears are carnivoran mammals of the family Ursidae. They are found across North America, South America, Europe, and Asia.',
       imageKey: 'bear',
+      pronunciation: '/bɛər/',
     },
     {
       id: '1-down',
@@ -37,6 +38,7 @@ const level3: LevelData = {
       clue: 'Feathered creature that flies',
       definition: 'Birds are warm-blooded vertebrates with feathers, toothless beaked jaws, and the ability to lay hard-shelled eggs. Most can fly.',
       imageKey: 'bird',
+      pronunciation: '/bɜːrd/',
     },
     {
       id: '2-across',
@@ -48,6 +50,7 @@ const level3: LevelData = {
       clue: 'Majestic bird of prey',
       definition: 'Eagles are large, powerful birds of prey with keen eyesight. The bald eagle is the national bird of the United States.',
       imageKey: 'eagle',
+      pronunciation: '/ˈiː.ɡəl/',
     },
     {
       id: '3-across',
@@ -59,6 +62,7 @@ const level3: LevelData = {
       clue: 'Graceful animal with antlers',
       definition: 'Deer are hoofed ruminant mammals forming the family Cervidae. Male deer typically grow and shed antlers each year.',
       imageKey: 'deer',
+      pronunciation: '/dɪər/',
     },
     {
       id: '4-down',
@@ -70,6 +74,7 @@ const level3: LevelData = {
       clue: 'Wild cat with tufted ears',
       definition: 'The lynx is a medium-sized wild cat with distinctive tufted ears, long legs, and a short tail. They live in forests across the Northern Hemisphere.',
       imageKey: 'lynx',
+      pronunciation: '/lɪŋks/',
     },
     {
       id: '5-across',
@@ -81,6 +86,7 @@ const level3: LevelData = {
       clue: 'Black and white ocean hunter',
       definition: 'The orca (killer whale) is the largest member of the dolphin family. They are apex predators found in all oceans.',
       imageKey: 'orca',
+      pronunciation: '/ˈɔːr.kə/',
     },
   ],
 };

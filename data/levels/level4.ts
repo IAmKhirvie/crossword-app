@@ -27,6 +27,7 @@ const level4: LevelData = {
       clue: 'Smallest unit of an element',
       definition: 'An atom is the smallest unit of ordinary matter that forms a chemical element. Every solid, liquid, gas, and plasma is composed of atoms.',
       imageKey: 'atom',
+      pronunciation: '/ˈæt.əm/',
     },
     {
       id: '1-down',
@@ -38,6 +39,7 @@ const level4: LevelData = {
       clue: 'Path around a planet or star',
       definition: 'An orbit is the curved path of an object around a point in space. Planets orbit the sun, and moons orbit planets.',
       imageKey: 'orbit',
+      pronunciation: '/ˈɔːr.bɪt/',
     },
     {
       id: '2-across',
@@ -49,6 +51,7 @@ const level4: LevelData = {
       clue: 'A link that holds atoms together',
       definition: 'A chemical bond is a lasting attraction between atoms that enables the formation of molecules and compounds.',
       imageKey: 'bond',
+      pronunciation: '/bɒnd/',
     },
     {
       id: '3-across',
@@ -60,6 +63,7 @@ const level4: LevelData = {
       clue: 'Unit of heredity in DNA',
       definition: 'A gene is a sequence of DNA that contains instructions for building proteins. Genes determine inherited traits like eye color.',
       imageKey: 'gene',
+      pronunciation: '/dʒiːn/',
     },
     {
       id: '4-across',
@@ -71,6 +75,7 @@ const level4: LevelData = {
       clue: 'Basic unit of all living things',
       definition: 'A cell is the smallest structural and functional unit of an organism. All living things are composed of one or more cells.',
       imageKey: 'cell',
+      pronunciation: '/sɛl/',
     },
     {
       id: '5-across',
@@ -82,6 +87,7 @@ const level4: LevelData = {
       clue: 'Focused beam of light',
       definition: 'A laser produces an intense, focused beam of light through stimulated emission of radiation. Used in medicine, communications, and industry.',
       imageKey: 'laser',
+      pronunciation: '/ˈleɪ.zər/',
     },
     {
       id: '6-across',
@@ -93,6 +99,7 @@ const level4: LevelData = {
       clue: 'Bright object in the night sky',
       definition: 'A star is a luminous sphere of plasma held together by gravity. Our Sun is the closest star to Earth.',
       imageKey: 'star',
+      pronunciation: '/stɑːr/',
     },
   ],
 };

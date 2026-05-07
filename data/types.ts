@@ -20,6 +20,7 @@ export interface WordEntry {
   clue: string;
   definition: string;
   imageKey: string;
+  pronunciation?: string;
 }
 
 export interface LevelData {

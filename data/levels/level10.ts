@@ -32,6 +32,7 @@ const level10: LevelData = {
       clue: 'Complete set of DNA in an organism',
       definition: 'A genome is an organism\'s complete set of DNA, including all of its genes. The Human Genome Project mapped the entire human genome.',
       imageKey: 'genome',
+      pronunciation: '/ˈdʒiː.noʊm/',
     },
     {
       id: '1-down',
@@ -43,6 +44,7 @@ const level10: LevelData = {
       clue: 'The force that pulls objects toward Earth',
       definition: 'Gravity is a fundamental force that attracts objects with mass toward each other. It keeps planets in orbit around stars.',
       imageKey: 'gravity',
+      pronunciation: '/ˈɡræv.ɪ.ti/',
     },
     {
       id: '2-across',
@@ -54,6 +56,7 @@ const level10: LevelData = {
       clue: 'Positively charged particle in an atom',
       definition: 'A proton is a subatomic particle with a positive electric charge. The number of protons defines the element.',
       imageKey: 'proton',
+      pronunciation: '/ˈproʊ.tɒn/',
     },
     {
       id: '3-across',
@@ -65,6 +68,7 @@ const level10: LevelData = {
       clue: 'The fourth state of matter',
       definition: 'Plasma is a state of matter consisting of ionized gas. Stars are made of plasma, and it makes up 99% of visible matter in the universe.',
       imageKey: 'plasma',
+      pronunciation: '/ˈplæz.mə/',
     },
     {
       id: '4-across',
@@ -76,6 +80,7 @@ const level10: LevelData = {
       clue: 'Basic building block of life',
       definition: 'A cell is the smallest structural and functional unit of living organisms. There are trillions of cells in the human body.',
       imageKey: 'cell',
+      pronunciation: '/sɛl/',
     },
     {
       id: '5-across',
@@ -87,6 +92,7 @@ const level10: LevelData = {
       clue: 'Splitting an atom\'s nucleus',
       definition: 'Nuclear fission is a reaction where a heavy nucleus splits into smaller nuclei, releasing enormous amounts of energy. It powers nuclear reactors.',
       imageKey: 'fission',
+      pronunciation: '/ˈfɪʃ.ən/',
     },
     {
       id: '6-across',
@@ -98,6 +104,7 @@ const level10: LevelData = {
       clue: 'Variant of an element with different neutrons',
       definition: 'Isotopes are variants of an element that differ in the number of neutrons. Carbon-14 is a radioactive isotope used for dating.',
       imageKey: 'isotope',
+      pronunciation: '/ˈaɪ.sə.toʊp/',
     },
     {
       id: '7-across',
@@ -109,6 +116,7 @@ const level10: LevelData = {
       clue: 'The smallest discrete amount of energy',
       definition: 'A quantum is the minimum amount of any physical entity involved in an interaction. Quantum mechanics describes nature at the atomic scale.',
       imageKey: 'quantum',
+      pronunciation: '/ˈkwɒn.təm/',
     },
     {
       id: '8-across',
@@ -120,6 +128,7 @@ const level10: LevelData = {
       clue: 'Neutral particle inside an atom\'s nucleus',
       definition: 'A neutron is a subatomic particle with no electric charge, found in the nucleus of atoms. Neutrons help hold the nucleus together.',
       imageKey: 'neutron',
+      pronunciation: '/ˈnuː.trɒn/',
     },
     {
       id: '9-across',
@@ -131,6 +140,7 @@ const level10: LevelData = {
       clue: 'The dense center of an atom',
       definition: 'The atomic nucleus is the small, dense region at the center of an atom consisting of protons and neutrons.',
       imageKey: 'nucleus',
+      pronunciation: '/ˈnuː.kli.əs/',
     },
     {
       id: '10-across',
@@ -142,6 +152,7 @@ const level10: LevelData = {
       clue: 'Intense focused beam of light',
       definition: 'A laser amplifies light by stimulated emission of radiation, producing a coherent, monochromatic, and highly directional beam.',
       imageKey: 'laser',
+      pronunciation: '/ˈleɪ.zər/',
     },
     {
       id: '11-across',
@@ -153,6 +164,7 @@ const level10: LevelData = {
       clue: 'The curved path around a celestial body',
       definition: 'An orbit is the gravitationally curved trajectory of an object, such as a planet around a star or a satellite around Earth.',
       imageKey: 'orbit',
+      pronunciation: '/ˈɔːr.bɪt/',
     },
     {
       id: '12-across',
@@ -164,6 +176,7 @@ const level10: LevelData = {
       clue: 'A push or pull on an object',
       definition: 'Force is any interaction that changes the motion of an object. Newton\'s laws describe how forces affect motion.',
       imageKey: 'force',
+      pronunciation: '/fɔːrs/',
     },
     {
       id: '13-across',
@@ -175,6 +188,7 @@ const level10: LevelData = {
       clue: 'The capacity to do work',
       definition: 'Energy is the quantitative property that must be transferred to a body to perform work. It comes in forms like kinetic, potential, and thermal.',
       imageKey: 'energy',
+      pronunciation: '/ˈɛn.ər.dʒi/',
     },
   ],
 };

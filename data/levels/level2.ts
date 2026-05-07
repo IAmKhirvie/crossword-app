@@ -26,6 +26,7 @@ const level2: LevelData = {
       clue: 'A round red or green fruit',
       definition: 'An apple is the round fruit of the apple tree (Malus domestica). Apples are one of the most widely cultivated tree fruits worldwide.',
       imageKey: 'apple',
+      pronunciation: '/ˈæp.əl/',
     },
     {
       id: '1-down',
@@ -37,6 +38,7 @@ const level2: LevelData = {
       clue: 'A small purple stone fruit',
       definition: 'A plum is a fruit of the subgenus Prunus. They have smooth skin and juicy, sweet flesh surrounding a hard pit.',
       imageKey: 'plum',
+      pronunciation: '/plʌm/',
     },
     {
       id: '2-down',
@@ -48,6 +50,7 @@ const level2: LevelData = {
       clue: 'Oval food laid by a hen',
       definition: 'An egg is an organic vessel laid by birds, reptiles, and some mammals. Chicken eggs are a staple food rich in protein.',
       imageKey: 'egg',
+      pronunciation: '/ɛɡ/',
     },
     {
       id: '3-across',
@@ -59,6 +62,7 @@ const level2: LevelData = {
       clue: 'White drink from a cow',
       definition: 'Milk is a nutrient-rich white liquid produced by female mammals. It is a primary source of nutrition for young mammals.',
       imageKey: 'milk',
+      pronunciation: '/mɪlk/',
     },
     {
       id: '4-across',
@@ -70,6 +74,7 @@ const level2: LevelData = {
       clue: 'Sour yellow citrus fruit',
       definition: 'A lemon is a yellow citrus fruit known for its sour taste. Its juice and zest are used in cooking and drinks worldwide.',
       imageKey: 'lemon',
+      pronunciation: '/ˈlɛm.ən/',
     },
   ],
 };

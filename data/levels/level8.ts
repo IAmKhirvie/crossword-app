@@ -29,6 +29,7 @@ const level8: LevelData = {
       clue: 'A short story with a moral lesson',
       definition: 'A fable is a short story, typically with animals as characters, conveying a moral. Aesop\'s Fables are the most famous collection.',
       imageKey: 'fable',
+      pronunciation: '/ˈfeɪ.bəl/',
     },
     {
       id: '1-down',
@@ -40,6 +41,7 @@ const level8: LevelData = {
       clue: 'A song that tells a story',
       definition: 'A ballad is a form of verse, often set to music, that tells a narrative story. Ballads are among the oldest forms of poetry.',
       imageKey: 'ballad',
+      pronunciation: '/ˈbæl.əd/',
     },
     {
       id: '2-across',
@@ -51,6 +53,7 @@ const level8: LevelData = {
       clue: 'A mournful poem for the dead',
       definition: 'An elegy is a poem of serious reflection, typically a lament for the dead. It is one of the oldest forms of poetry.',
       imageKey: 'elegy',
+      pronunciation: '/ˈɛl.ə.dʒi/',
     },
     {
       id: '3-across',
@@ -62,6 +65,7 @@ const level8: LevelData = {
       clue: 'A play performed on stage',
       definition: 'Drama is a genre of narrative fiction meant to be performed on stage, including tragedy and comedy.',
       imageKey: 'drama',
+      pronunciation: '/ˈdrɑː.mə/',
     },
     {
       id: '4-across',
@@ -73,6 +77,7 @@ const level8: LevelData = {
       clue: 'The sequence of events in a story',
       definition: 'A plot is the main events of a story, devised and presented by the writer as an interrelated sequence.',
       imageKey: 'plot',
+      pronunciation: '/plɒt/',
     },
     {
       id: '5-across',
@@ -84,6 +89,7 @@ const level8: LevelData = {
       clue: 'A long work of fiction in a book',
       definition: 'A novel is a long narrative work of fiction exploring characters and plot in depth over many pages.',
       imageKey: 'novel',
+      pronunciation: '/ˈnɒv.əl/',
     },
     {
       id: '6-across',
@@ -95,6 +101,7 @@ const level8: LevelData = {
       clue: 'When the opposite of what you expect happens',
       definition: 'Irony is a literary device where the intended meaning is opposite to the literal meaning.',
       imageKey: 'irony',
+      pronunciation: '/ˈaɪ.rə.ni/',
     },
     {
       id: '7-across',
@@ -106,6 +113,7 @@ const level8: LevelData = {
       clue: 'Japanese poem with 5-7-5 syllables',
       definition: 'A haiku is a traditional Japanese poem of three lines with 5, 7, and 5 syllables, often capturing a moment in nature.',
       imageKey: 'haiku',
+      pronunciation: '/ˈhaɪ.kuː/',
     },
     {
       id: '8-across',
@@ -117,6 +125,7 @@ const level8: LevelData = {
       clue: 'Words of a song',
       definition: 'Lyrics are the words of a song. Lyric poetry expresses personal emotions and feelings.',
       imageKey: 'lyric',
+      pronunciation: '/ˈlɪr.ɪk/',
     },
     {
       id: '9-across',
@@ -128,6 +137,7 @@ const level8: LevelData = {
       clue: 'A category of literature or art',
       definition: 'A genre is a category of artistic composition characterized by similarities in form, style, or subject matter.',
       imageKey: 'genre',
+      pronunciation: '/ˈʒɑːn.rə/',
     },
     {
       id: '10-across',
@@ -139,6 +149,7 @@ const level8: LevelData = {
       clue: 'Written language in ordinary form',
       definition: 'Prose is written language in its ordinary form, without metrical structure, as distinguished from poetry.',
       imageKey: 'prose',
+      pronunciation: '/proʊz/',
     },
   ],
 };

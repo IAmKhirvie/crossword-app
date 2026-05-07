@@ -29,6 +29,7 @@ const level5: LevelData = {
       clue: 'A large flowing body of water',
       definition: 'A river is a natural flowing watercourse that moves toward an ocean, sea, or lake.',
       imageKey: 'river',
+      pronunciation: '/ˈrɪv.ər/',
     },
     {
       id: '1-down',
@@ -40,6 +41,7 @@ const level5: LevelData = {
       clue: 'Low land between hills or mountains',
       definition: 'A valley is an elongated low area between hills or mountains, often with a river running through it.',
       imageKey: 'valley',
+      pronunciation: '/ˈvæl.i/',
     },
     {
       id: '2-across',
@@ -51,6 +53,7 @@ const level5: LevelData = {
       clue: 'Vast body of salt water',
       definition: 'The ocean covers about 71% of the Earth\'s surface and contains 97% of Earth\'s water.',
       imageKey: 'ocean',
+      pronunciation: '/ˈoʊ.ʃən/',
     },
     {
       id: '2-down',
@@ -62,6 +65,7 @@ const level5: LevelData = {
       clue: 'A deep gorge carved by a river',
       definition: 'A canyon is a deep, narrow valley with steep sides. The Grand Canyon is the most famous example.',
       imageKey: 'canyon',
+      pronunciation: '/ˈkæn.jən/',
     },
     {
       id: '3-across',
@@ -73,6 +77,7 @@ const level5: LevelData = {
       clue: 'Flat open area of land',
       definition: 'A plain is a broad area of relatively flat land, important for agriculture worldwide.',
       imageKey: 'plain',
+      pronunciation: '/pleɪn/',
     },
     {
       id: '4-across',
@@ -84,6 +89,7 @@ const level5: LevelData = {
       clue: 'Where a river fans out at the sea',
       definition: 'A delta is a landform at the mouth of a river where sediment is deposited in a fan shape.',
       imageKey: 'delta',
+      pronunciation: '/ˈdɛl.tə/',
     },
     {
       id: '5-across',
@@ -95,6 +101,7 @@ const level5: LevelData = {
       clue: 'A book of maps',
       definition: 'An atlas is a collection of maps. Named after the Greek titan Atlas who held up the sky.',
       imageKey: 'atlas',
+      pronunciation: '/ˈæt.ləs/',
     },
     {
       id: '6-across',
@@ -106,6 +113,7 @@ const level5: LevelData = {
       clue: 'A steep rock face by the sea',
       definition: 'A cliff is a steep, vertical, or near-vertical rock face. Cliffs are formed by erosion and weathering.',
       imageKey: 'cliff',
+      pronunciation: '/klɪf/',
     },
   ],
 };

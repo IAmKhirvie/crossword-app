@@ -28,6 +28,7 @@ const level6: LevelData = {
       clue: 'A wind instrument you blow across',
       definition: 'A flute is a woodwind instrument that produces sound when air is blown across an opening. It is one of the oldest instruments in history.',
       imageKey: 'flute',
+      pronunciation: '/fluːt/',
     },
     {
       id: '2-down',
@@ -39,6 +40,7 @@ const level6: LevelData = {
       clue: 'The speed of music',
       definition: 'Tempo is the speed at which a piece of music is played. It is measured in beats per minute (BPM).',
       imageKey: 'tempo',
+      pronunciation: '/ˈtɛm.poʊ/',
     },
     {
       id: '3-across',
@@ -50,6 +52,7 @@ const level6: LevelData = {
       clue: 'A sequence of pleasing musical notes',
       definition: 'A melody is a linear succession of musical tones perceived as a single entity — the "tune" of a song.',
       imageKey: 'melody',
+      pronunciation: '/ˈmɛl.ə.di/',
     },
     {
       id: '4-across',
@@ -61,6 +64,7 @@ const level6: LevelData = {
       clue: 'You hit this instrument with sticks',
       definition: 'A drum is a percussion instrument struck with hands or sticks. Drums are among the oldest musical instruments.',
       imageKey: 'drum',
+      pronunciation: '/drʌm/',
     },
     {
       id: '5-across',
@@ -72,6 +76,7 @@ const level6: LevelData = {
       clue: 'Keyboard instrument with 88 keys',
       definition: 'The piano is a keyboard instrument where hammers strike strings to produce sound. It has 88 keys spanning over 7 octaves.',
       imageKey: 'piano',
+      pronunciation: '/piˈæn.oʊ/',
     },
     {
       id: '6-across',
@@ -83,6 +88,7 @@ const level6: LevelData = {
       clue: 'A single musical sound',
       definition: 'A musical note represents a single sound and its duration. The notes A through G form the musical alphabet.',
       imageKey: 'note',
+      pronunciation: '/noʊt/',
     },
     {
       id: '7-across',
@@ -94,6 +100,7 @@ const level6: LevelData = {
       clue: 'The lowest range of musical notes',
       definition: 'Bass refers to the lowest part in musical composition. Bass instruments include bass guitar, double bass, and tuba.',
       imageKey: 'bass',
+      pronunciation: '/beɪs/',
     },
     {
       id: '8-across',
@@ -105,6 +112,7 @@ const level6: LevelData = {
       clue: 'Six-stringed instrument you strum',
       definition: 'A guitar is a fretted string instrument with typically six strings. It is one of the most popular instruments worldwide.',
       imageKey: 'guitar',
+      pronunciation: '/ɡɪˈtɑːr/',
     },
     {
       id: '9-across',
@@ -116,6 +124,7 @@ const level6: LevelData = {
       clue: 'Multiple notes played together',
       definition: 'A chord is a group of notes sounded together in harmony. Chords are the foundation of musical harmony.',
       imageKey: 'chord',
+      pronunciation: '/kɔːrd/',
     },
   ],
 };
