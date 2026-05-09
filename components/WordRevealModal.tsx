@@ -24,7 +24,6 @@ export function WordRevealModal({ visible, wordInfo, onDismiss }: WordRevealModa
       <View style={styles.overlay}>
         <View style={styles.card}>
           <ScrollView contentContainerStyle={styles.content}>
-            <Text style={styles.checkmark}>&#10003;</Text>
             <Text style={styles.word}>{wordInfo.wordEntry.word}</Text>
 
             <View style={styles.imageContainer}>
@@ -34,7 +33,7 @@ export function WordRevealModal({ visible, wordInfo, onDismiss }: WordRevealModa
                 resizeMode="contain"
               />
             </View>
-
+            <Text style={styles.pronunciation}>{wordInfo.wordEntry.pronunciation}</Text>
             <Text style={styles.definition}>{wordInfo.wordEntry.definition}</Text>
 
             <TouchableOpacity style={styles.button} onPress={onDismiss}>
@@ -94,6 +93,13 @@ const styles = StyleSheet.create({
   image: {
     width: 180,
     height: 180,
+  },
+  pronunciation: {
+    fontSize: 18,
+    color: '#666',
+    fontStyle: 'italic',
+    marginBottom: 16,
+    textAlign: 'center',
   },
   definition: {
     fontSize: 16,
